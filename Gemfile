@@ -1,0 +1,5 @@
+source 'https://rubygems.org'
+gem 'sinatra'
+gem 'pry'
+gem 'curb'
+gem 'thin'

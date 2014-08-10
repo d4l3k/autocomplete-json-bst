@@ -1,0 +1,35 @@
+<style>
+body {
+  font-family: monospace;
+}
+</style>
+<h1>Test Ruby B-Tree Auto Complete Microservice</h1>
+<hr>
+Enter words: <input id="search" type="text"></input>
+
+<hr>
+<h4>Matched:</h4>
+<div id="matches"></div>
+<script src="jquery.js"></script>
+<script>
+  var prev = $.getJSON('/complete/ijzp-q8t2/', {}, function() {});
+  $("#search").keyup(function(e) {
+    setTimeout(function() {
+      var value = $(e.currentTarget).val();
+      prev.abort();
+      prev = $.getJSON('/complete/ijzp-q8t2/' + value, {}, function(matches) {
+        console.log('COMPLETED', value);
+        if (matches.length === 0) {
+          var html = 'No matches found...';
+        } else {
+          var html = '<ul>';
+          $.each(matches, function(i, v) {
+            html += '<li>' + v + '</li>';
+          });
+          html += '</ul>';
+        }
+        $('#matches').html(html);
+      });
+    }, 1);
+  });
+</script>
